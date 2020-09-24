@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@Html.AntiForgeryToken()
+
+<div class="banner">
+    <div class="container ">
+        <!-- banner-text Slider starts Here -->
+        <script>
+            // You can also use "$(window).load(function() {"
+            window.onload = function () {
+                // Slideshow 4
+                $("#slider3").responsiveSlides({
+                    auto: true,
+                    pager: true,
+                    nav: false,
+                    speed: 500,
+                    namespace: "callbacks",
+                    before: function () {
+                        $('.events').append("<li>before event fired.</li>");
+                    },
+                    after: function () {
+                        $('.events').append("<li>after event fired.</li>");
+                    }
+                });
+            }
+            //$(function () {
+            //});
+        </script>
+        <!--//End-slider-script -->
+
+        <div id="top" class="callbacks_container">
+            <ul class="rslides" id="slider3">
+                <li>
+                    <div class="banner-text">
+                        <h1>We are here to care</h1>
+                        <p>Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-text">
+                        <h1>Lorem ip sum avai re for cayou</h1>
+                        <p>Majority have sufferedorem lipsum available, but the  alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="banner-text">
+                        <h1>Availf able lor emip cayou refor</h1>
+                        <p>Randomised words orem ipsum available, but the majority have suffered alteration in some form, by injected humour, or which don't look even slightly believable.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--//banner-->
+
+<!--banner-bottom-->
+<div class="banner-bottom">
+    <div class="container">
+        <h2>Lorem Ipsum was popularised in the with the release of Letraset sheets containing</h2>
+        <a href="#gallery" class="arrow scroll"> </a>
+    </div>
+</div>
+<!--//banner-bottom-->
+
+<!--gallery-->
+<div class="gallery" id="gallery">
+    <div class="col-md-6 gallery-left">
+        <h4>Letraset sheets</h4>
+        <p>Lorem Ipsum was popularised in the with the release of Letraset sheets contai ningthe with the release of </p>
+    </div>
+    <div class="col-md-6 gallery-right">
+        <div class="gallery-grid-a">
+            <h4>Letraset sheets</h4>
+            <p>Lorem Ipsum was popularised in the with the release of Letraset sheets contai ningthe with the release of </p>
+        </div>
+        <div class="gallery-grid-b">
+            <h4>Letraset sheets</h4>
+            <p>Lorem Ipsum was popularised in the with the release of Letraset sheets contai ningthe with the release of </p>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+<!--//gallery-->
+
+<!--work-->
+<div class="work">
+    <div class="container">
+        <div class="work-title">
+            <h3>More projects</h3>
+            <p>Lorem Ipsum was popularised in the with the release of Letraset sheets contai ningthe</p>
+        </div>
+        <div class="col-md-4 work-grids">
+            <ul>
+                <li>
+                    <img src="~/Images/icon2.png" alt="">
+                </li>
+                <li>
+                    <h4>Quas molestias excep</h4>
+                    <p>praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 work-grids">
+            <ul>
+                <li>
+                    <img src="~/Images/icon3.png" alt="">
+                </li>
+                <li>
+                    <h4>occaecati cupiusint</h4>
+                    <p>praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-4 work-grids">
+            <ul>
+                <li>
+                    <img src="~/Images/icon4.png" alt="">
+                </li>
+                <li>
+                    <h4>Excepturi sint occa</h4>
+                    <p>praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!--//work-->
+
+<div class="like">
+    <div class="container">
+        <div class="work-title">
+            <h3>Stay connected with us</h3>
+            <p class="cnnct">Lorem Ipsum was popularised in the with the release of Letraset sheets contai ningthe</p>
+        </div>
+        <div class="col-md-3 like-grids">
+            <a href="#">
+                <img src="~/Images/icon1.png" alt="" />
+            </a>
+            <p>Facebook</p>
+        </div>
+        <div class="col-md-3 like-grids">
+            <a href="#">
+                <img src="~/Images/icon5.png" alt="" />
+            </a>
+            <p>Twitter</p>
+        </div>
+        <div class="col-md-3 like-grids">
+            <a href="#">
+                <img src="~/Images/icon6.png" alt="" />
+            </a>
+            <p>Pinterest</p>
+        </div>
+        <div class="col-md-3 like-grids">
+            <a href="#">
+                <img src="~/Images/icon7.png" alt="" />
+            </a>
+            <p>Googleplus</p>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
