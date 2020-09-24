@@ -1,0 +1,76 @@
+﻿@model AddQueryMessageViewModel
+@{
+    ViewBag.Title = "Contact";
+
+
+    bool IsAdded = false;
+    if (ViewData.Keys.Contains("Success"))
+    {
+        IsAdded = (bool)ViewData["Success"];
+    }
+
+    bool isException = false;
+    if (ViewData.Keys.Contains("Exception"))
+    {
+        IsAdded = (bool)ViewData["Exception"];
+    }
+
+}
+
+<script type="text/javascript">
+    window.onload = function () {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+        });
+    }
+</script>
+
+@if (IsAdded)
+{
+    <div class="hidden" id="alertUser">
+        <p id="header-message">Submitted</p>
+        <p id="main-message">Thanks for your query. we'll answer it shortly...!!</p>
+        <p id="alert-type">success</p>
+        <p id="confirm-button-class"></p>
+    </div>
+}
+else if (isException)
+{
+    <div class="hidden" id="alertUser">
+        <p id="header-message">Error</p>
+        <p id="main-message">Sorry, an error occured while saving your query. please try again.</p>
+        <p id="alert-type">error</p>
+        <p id="confirm-button-class"></p>
+    </div>
+}
+
+<!--contact-->
+<div class="contact">
+    <div class="container">
+        <h3>Contact us</h3>
+        <div class="contact-form">
+            @Html.ValidationSummary()
+            <form method="post">
+                @Html.AntiForgeryToken()
+                <div class="col-md-12 cnt-inpt">
+                    @Html.EditorFor(model => Model.Name, new { htmlAttributes = new { placeholder = "Name" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-5 cnt-inpt">
+                    @Html.EditorFor(model => Model.Email, new { htmlAttributes = new { placeholder = "Email" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-push-2 col-md-5 cnt-inpt">
+                    @Html.EditorFor(model => Model.PhoneNumber, new { htmlAttributes = new { placeholder = "Phone Number" } })
+                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                </div>
+                <div class="clearfix"> </div>
+                @Html.EditorFor(model => Model.Question, new { htmlAttributes = new { placeholder = "Question" } })
+                @Html.ValidationMessageFor(model => model.Question, "", new { @class = "text-danger" })
+                <br /><input type="submit" value="submit">
+            </form>
+        </div>
+    </div>
+</div>
+<!--//contact-->
