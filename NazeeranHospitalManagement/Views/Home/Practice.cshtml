@@ -1,0 +1,1111 @@
+﻿<html class=" js csstransforms3d">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetSchedule - Nazeeran Hospital Management.</title>
+    <script src="/Scripts/modernizr.custom.theme.js"></script>
+    <link href="/Content/font-awesome.min.css" rel="stylesheet">
+    <link href="/Content/bootstrap-theme.css" rel="stylesheet">
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/chocolat.css" rel="stylesheet">
+    <link href="/Content/style.css" rel="stylesheet">
+    <link href="/Content/jquery.datetimepicker.css" rel="stylesheet">
+    <link href="/Content/animate.css" rel="stylesheet">
+    <link href="/Content/SweetAlert/sweet-alert.css" rel="stylesheet">
+    <link href="/Content/pdsa-sidebar.css" rel="stylesheet">
+    <link href="/Content/pdsa-summary-block.css" rel="stylesheet">
+    <link href="/Content/pdsa-readme-box.css" rel="stylesheet">
+    <link href="/Content/site.css" rel="stylesheet">
+</head>
+<body>
+    <!--header-->
+    <div class="header">
+        <div class="container">
+            <div class="header-logo">
+                <a href="/Home/Index"><img width="100" height="100" alt="logo" src="/Images/logo.png"></a>
+            </div>
+            <div class="header-info">
+                <p>Information Service:</p>
+                <h4>051 - 252 526 5</h4>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!--//header-->
+    <!--header-bottom-->
+    <div class="header-bottom">
+        <div class="container">
+            <!--top-nav-->
+            <div class="top-nav cl-effect-5">
+                <span class="menu-icon"><img alt="" src="/Images/menu-icon.png"></span>
+                <ul class="nav1">
+                    <li>
+                        <a class="active" href="~/Home/Index/">
+                            <span data-hover="Home">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Home/About/">
+                            <span data-hover="About">About</span>
+                        </a>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="">
+                            <span data-hover="Appointment">Appointment</span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="~/GetAppointment/SearchSchedule">
+                                    <span data-hover="Book Appointment">Book&nbsp;Appointment</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/GetAppointment/FindAppointment?WantCancelling=False">
+                                    <span data-hover="Cancel Appointment">Cancel&nbsp;Appointment</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="~/GetAppointment/FindAppointment?WantCancelling=True">
+                                    <span data-hover="Reschedule Appointment">Reschedule&nbsp;Appointment</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="~/Home/Contact/">
+                            <span data-hover="Contact Us">Contact Us</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="~/Account/LogIn">
+                            <span contenteditable="false" data-hover="LogIn">LogIn</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <!--//header-bottom-->
+    <!--render-body-->
+    <section>
+
+        <div class="min-heigth-box">
+            <div class="container">
+                <div class="min-top-padding"></div>
+                <div class="table-details min-heigth-box">
+                    <div class="row">
+                        <div class="col-md-11 middle-align">
+                            <div class="panel panel-default panel-table">
+                                <div class="panel-heading" id="schedule_header_color">
+                                    <div class="row">
+                                        <div>
+                                            <h4 class="text-center">View Doctor Schedules!</h4>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div>
+                                                <form class="form-inline" action="/GetAppointment/GetSchedule" method="get" novalidate="novalidate">
+                                                    <div class="input-group col-md-4">
+                                                        <span class="input-group-addon">Filter Results By</span>
+                                                        <select name="FilterOption" class="form-control valid" id="SearchOptions">
+                                                            <option value="1">SelectAnOption</option>
+                                                            <option value="3">Dates</option>
+                                                            <option value="4">Department</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <div class="visible animated fadeInLeft" id="SearchOption_ByDate">
+                                                            <div class="input-group">
+                                                                <label class="input-group-addon" for="Date">Date</label>
+                                                                <input name="Date" class="form-control date text-box single-line valid" id="Date" type="date" value="01-Jan-01" data-val-date="The field Date must be a date." data-val="true">
+                                                                <div class="col-md-10">
+                                                                    <span class="text-danger field-validation-valid" data-valmsg-replace="true" data-valmsg-for="Date"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="visible animated fadeInLeft fadeInRight hidden" id="SearchOption_ByDepartment">
+                                                            <div class="input-group">
+                                                                <label class="input-group-addon" for="DepartmentName">Department Name</label>
+                                                                <select name="DepartmentId" class="form-control" id="DepartmentId" data-val-required="The Department Id field is required." data-val="true" data-val-number="The field Department Id must be a number.">
+                                                                    <option selected="selected" value="-1">Select Department</option>
+                                                                    <option value="1">ENT</option>
+                                                                    <option value="2">Head</option>
+                                                                    <option value="3">X-Ray</option>
+                                                                    <option value="4">Skin</option>
+                                                                    <option value="6">FC</option>
+                                                                </select>
+                                                                <div class="col-md-10">
+                                                                    <span class="field-validation-valid text-danger" data-valmsg-replace="true" data-valmsg-for="DepartmentId"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group pull-right">
+                                                        <button name="filterResults" class="btn btn-info" type="submit">Filter</button>
+                                                    </div>
+                                                    <input name="DoctorName" id="DoctorName" type="hidden" value="doc"><input name="Date" id="Date" type="hidden" value="01-Jan-01"><input name="DepartmentId" id="DepartmentId" type="hidden" value="-1"><input name="SearchOption" id="SearchOption" type="hidden" value="2" data-val-required="The Search By field is required." data-val="true">
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="clearfix"></div>
+                                    <table class="table table-striped table-bordered table-list" id="tableDoctorSchedule">
+                                        <thead>
+                                            <tr class="table-header">
+                                                <th>
+                                                    Doctor Name
+                                                </th>
+                                                <th>
+                                                    Department Name
+                                                </th>
+
+                                                <th>
+                                                    <input name="__RequestVerificationToken" type="hidden" value="G4XW1rqpilMEhd1E01h-pHzk8IOYibETuWKzeZowRp9-QkoIy-hpUZzL2k6TYJ3Erg_yYoI7USXMQzdW9GDMZZBVfvar6G4oQlhG0R4GtK01">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="77e1f879-42a3-4c06-8245-1e86072ab0aa" data-val-required="The Doctor Id field is required." data-val="true">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="N5KjWEkSG1ENv2KRgobe_2hGR49598EnOkHZXGURWySYYhDI6-WxLDRzOPpQyZ8DQMcIxpuu__FHM4rFTgWHRK_AEBlT49PyVPQBBlOC3p01">
+                                                </td>
+                                                <td>
+                                                    Doctor12345
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="r7Qp1OcZmGyyXzQVSIdrYoKqHd_oa9AV-GpKbwp2Vjc2ipQXBSx-Ahjb3bz34JfnSCQzzwmnqiAnnHywHZSIBCs-rv3maSr3aZtk7FIkDEI1">
+                                                </td>
+                                                <td>
+                                                    Doctor12345
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="Y0VkQKC0gaSW8CaMrdG5j2BA9coNny7tsDpbvaC-3BYYi5PHOWoii_xtzVjhgi_u5PF-yjGDnXCZ6FqWjTjG0m-f8FYArgb2SZqkI1Ctm4k1">
+                                                </td>
+                                                <td>
+                                                    Doctor12345
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="KR09FNKRYZsMcAceg0J_PiYy-MIZZifUNRKigQYm2zyH5c2fPcTsRsD0GtOdRq0QGNG3V8RVgfiL-hrLSiiayFsk_5HmdJBkYMgkAER7REc1">
+                                                </td>
+                                                <td>
+                                                    Doctor12345
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="i5xZm6J-ZQXcd_19VKPCIJzVws0tPr__eIZ7ROkCP9n2lTc18Wr1u0fqsdWDRyMGKn2Zjf_CVm3T_MVMdoHMWy3IQkmtzBK_CI_Qd70jV741">
+                                                </td>
+                                                <td>
+                                                    Doctor12345
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=77e1f879-42a3-4c06-8245-1e86072ab0aa">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="-cSUSnfl2BlOV2Opo03nnnHJXRHetZVqM-9gcsHyV75pNOKAe157d9-IzbmhHdHm54wH5ijmOQZoKfT397UNHejdlCuhmNz-s7IM1_WpKrw1">
+                                                </td>
+                                                <td>
+                                                    Doctor01
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="hNwOtUAkttO8k48aEODO0Z2DlnDprp-2D4hdLc8qtmKiYyqNIjPpepErXlO2_SNeYzupitJysGiROAWSN8e7a-i-k1l9LQT-1w20k7unqDc1">
+                                                </td>
+                                                <td>
+                                                    Doctor01
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="K3Jv4zesjh4rY2ffAIozyD8ijsUi-ufbAVOCpt_gCQEGN7CZ0tr8pUVe6IBMFR0VJfs9nx_VTwfuevcQFQfBdn2t6vOMx39n03d401fp7ss1">
+                                                </td>
+                                                <td>
+                                                    Doctor01
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="Y9LKWSradky80I8GyO4CnFGnO8rwH6WYJTAU7hRhLYfALOIvDeddNutWocX52MYY2N575-waIlnPhopJ1VgsJ4poFKPC7rnRF0bdPJGnc641">
+                                                </td>
+                                                <td>
+                                                    Doctor01
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="XUPpwy9Ipks8hux381-WE5kDff7f65GzUnpTDJHEk7_d2pUI5ibpRivuUXmr-woBynVM5AdeQdFWsMdpG0g6ehUl8ypOH8aMLfUqYoHUjss1">
+                                                </td>
+                                                <td>
+                                                    Doctor01
+                                                </td>
+                                                <td>
+                                                    ENT
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=96586bbd-ca26-4831-b92a-414c1f6fb00f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="iAVXz5Mj33-WAW-DJvVU6YxrF8c-Rqy2dBY2RFekC-YymfDBKl3lumyGhUT7g42K8idvHRSSrY-ui0fgEw12PS2JbSPrynH2-C9yeexaMUI1">
+                                                </td>
+                                                <td>
+                                                    Doctor02
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="jW66PknecwgU67kfGrNu5OAmu8RGG5m1p1dOhq1IlioDWmaiDjCSUcLAZ9VKpl6sZzVrBrCcUVfqzTv2Wko8EtKNzaDtEN82vrEt4J8mtyo1">
+                                                </td>
+                                                <td>
+                                                    Doctor02
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="fWwmFP90HVcQnLZbXgctRDWtDPO_jFXNUw_KnNx1rSqxHZfOt6Nsipq5wuSZJcloN-f5TmRth-cBcJpxdvAMs0-lJ2RjNCpEg8xaQvdiqa41">
+                                                </td>
+                                                <td>
+                                                    Doctor02
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="okHW352pVHNUc1G5oLvr-kXmYkBsSOuqv232L83f15fv94jmarsQ_hBgh6e5yCdVxdzif1e8yrwpz238AQsntXKt_ytd0WDK6RXqzLn2W-U1">
+                                                </td>
+                                                <td>
+                                                    Doctor02
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="TqQ5OOAhE448v5Kir0WxYTV07K6Sm3Vjh0t-pLv34ZKlLE5d3dYE9OWATiWDglW4-k2YeiG73eyLI6jG1uSyLjY62Bx5_UIurJ5uqIQINXc1">
+                                                </td>
+                                                <td>
+                                                    Doctor02
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=2ceae22c-322c-4eeb-8a74-6b7a94db6a54">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="BqfnG88SvZMjmKvomQuBbCmAVVO6LQmkQsy9anX04nT-uUDuVSrLq-5rwdMACZ8--WUN_nNxlVYqlKGb-R3nLBU7dyMc5k4kejVPgcjVqdk1">
+                                                </td>
+                                                <td>
+                                                    Doctor04
+                                                </td>
+                                                <td>
+                                                    X-Ray
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="nipocGnjgtskopwJPyyJsF1TVIkxkG1OHHx6bt2FsSfl5TVQsEWsbPvs-qKVKDksqZ71N6LEl_WYfZ349-l_vDJwXP_1K2kQgvMQV9uE8Cc1">
+                                                </td>
+                                                <td>
+                                                    Doctor04
+                                                </td>
+                                                <td>
+                                                    X-Ray
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="RO86I8EuEr67uRjJWG_e0HK32qCdMz4YbYa_rz6XWp1Vz_qI3tyP0YD43oHOg074MialI806uxqAOFbqQjp-JTKkMIm-LZSLUak8VgHUqSw1">
+                                                </td>
+                                                <td>
+                                                    Doctor04
+                                                </td>
+                                                <td>
+                                                    X-Ray
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="LxqN3RjNlzmrdxcF1koggL-42TiWqmXgmVltL1D_BPPj-ZUOPe7vi0RVL1TbCXsaHSi-6mzwNxzqzOKR-mtMEutoO1LSmqgDdIFA4OmyneM1">
+                                                </td>
+                                                <td>
+                                                    Doctor04
+                                                </td>
+                                                <td>
+                                                    X-Ray
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="N9nMuIdM549-ZX8Pyxd29sA1mgweBXJu_tpdw2iUv2FsLcuRgvsbqeiwHYrE6k5e7NwDHdhFT71nsw--JsIhNRHBfSzXT0m-A95gx30W2781">
+                                                </td>
+                                                <td>
+                                                    Doctor04
+                                                </td>
+                                                <td>
+                                                    X-Ray
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=1609d0f0-420a-4f41-a233-016bb0f4410f">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="DN6XuS4yqldwMTbmYPS_42c_OpRQP4POO7ieHHBgGmCFpT9lAF1VKOzqAJ9O7oOF6naT6CORMx5axZDkrMi5RXAAA-pprUsAGwLGzPLDI0I1">
+                                                </td>
+                                                <td>
+                                                    Doctor03
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="ww05bLDyi1AxnbcsxyNUGzfJN3hU9ZKxpD2I-MxmMizY7_DOJloeLN3hVK9ZdU0BYy2lmDCD-bK2TDlUhYhzqfJ700chjR_tml1qArEf13E1">
+                                                </td>
+                                                <td>
+                                                    Doctor03
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="NRnpVlrHcpTvvWFlsguAEZIPUZwKuRiS8Nm58E8CUaXMKLfmWlbFDMyA7aDSUy9uJT8tFptq4bRFTVDA90-6NcsXvypdcIM68J7814aIM501">
+                                                </td>
+                                                <td>
+                                                    Doctor03
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="bktyWfZ9_QIDtjk-WzA1g5UeiX08d9KnDqNvN1Q6YplHL5JIHG0b9YZTQtPQOEjbVVPRlnbXgrbrA-ztjxUg54PFiZ54NzxWTnP9J0b1i641">
+                                                </td>
+                                                <td>
+                                                    Doctor03
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="hidden">
+                                                    <input name="item.DoctorId" id="item_DoctorId" type="hidden" value="6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                    <input name="__RequestVerificationToken" type="hidden" value="4iVOX2i4xDc-i4yqR_tgDXlExLXOvu_buS8DeeeJDao9CRYuAwLXhaR4uL7WfEWEOlKHlZcmWYkApFT6EDW_Ey-tMBSRP2i0JPdxfZtYCw41">
+                                                </td>
+                                                <td>
+                                                    Doctor03
+                                                </td>
+                                                <td>
+                                                    Head
+                                                </td>
+
+                                                <td>
+                                                    <a href="/GetAppointment/ViewSchedule?DoctorId=6a42779e-06f0-4f11-a912-346d371e8e3e">
+                                                        <i class="fa fa-eye"></i>
+                                                        View Schedule
+                                                    </a>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!--//render-body-->
+    <!--map-->
+    <div class="map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3322.568566761977!2d72.96970361475397!3d33.61649694801495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38df968cf40a7279%3A0xc5f472b78a8bcfc4!2sRiphah+International+University!5e0!3m2!1sen!2s!4v1452495789476"></iframe>
+        <div class="container">
+            <div class="map-info">
+                <ul>
+                    <li>Head office</li>
+                    <li>Riphah International University</li>
+                    <li>Islamabad, Pakistan</li>
+                    <li>068 5570 123</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--//map-->
+    <!--footer-->
+    <footer>
+        <!--footer-bottom-->
+        <div class="footer-bottom">
+            <div class="container">
+                <p>Copyright &copy; 2015 -@DateTime.Now.Year Nazeeran Hospital. All rights reserved</p>
+            </div>
+        </div>
+        <!--//footer-bottom-->
+    </footer>
+    <!--//footer-->
+    <script src="/Scripts/jquery-2.2.1.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Scripts/easing.js"></script>
+    <script src="/Scripts/jquery.chocolat.js"></script>
+    <script src="/Scripts/move-top.js"></script>
+    <script src="/Scripts/responsiveslides.min.js"></script>
+    <script src="/Scripts/jquery.datetimepicker.full.js"></script>
+    <script src="/Scripts/SweetAlert/sweet-alert.js"></script>
+    <script src="/Scripts/jquery.maskedinput.js"></script>
+    <script src="/Scripts/Tooltipster/jquery.tooltipster.min.js"></script>
+    <script src="/Scripts/Script.js"></script>
+
+    <!--smooth-scrolling-of-move-up-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+
+            $().UItoTop({ easingType: 'easeOutQuart' });
+
+        });
+    </script>
+    <!--//smooth-scrolling-of-move-up-->
+    <!-- Visual Studio Browser Link -->
+    <script id="__browserLink_initializationData" type="application/json">
+        {"appName":"Internet Explorer","requestId":"f6b72546403d46b8bfd52db3140baec5"}
+    </script>
+    <script src="http://localhost:52704/881974aebaaa4eb7a822c5d39c2ea866/browserLink" type="text/javascript" async="async"></script>
+    <!-- End Browser Link -->
+
+
+    <a id="toTop" style="display: none;" href="#"><span id="toTopHover"></span>To Top</a>
+    <div class="xdsoft_datetimepicker xdsoft_noselect xdsoft_" style="left: 539.52px; top: 333px; display: none; position: absolute;">
+        <div class="xdsoft_datepicker active">
+            <div class="xdsoft_mounthpicker">
+                <button class="xdsoft_prev" style="visibility: visible;" type="button"></button>
+                <button class="xdsoft_today_button" style="visibility: visible;" type="button"></button>
+                <div class="xdsoft_label xdsoft_month">
+                    <span>April</span>
+                    <div class="xdsoft_select xdsoft_monthselect xdsoft_scroller_box" style="display: none;">
+                        <div style="margin-top: 0px;">
+                            <div class="xdsoft_option " data-value="0">January</div>
+                            <div class="xdsoft_option " data-value="1">February</div>
+                            <div class="xdsoft_option " data-value="2">March</div>
+                            <div class="xdsoft_option xdsoft_current" data-value="3">April</div>
+                            <div class="xdsoft_option " data-value="4">May</div>
+                            <div class="xdsoft_option " data-value="5">June</div>
+                            <div class="xdsoft_option " data-value="6">July</div>
+                            <div class="xdsoft_option " data-value="7">August</div>
+                            <div class="xdsoft_option " data-value="8">September</div>
+                            <div class="xdsoft_option " data-value="9">October</div>
+                            <div class="xdsoft_option " data-value="10">November</div>
+                            <div class="xdsoft_option " data-value="11">December</div>
+                        </div>
+                        <div class="xdsoft_scrollbar">
+                            <div class="xdsoft_scroller" style="height: 10px; margin-top: 0px; display: block;"></div>
+                        </div>
+                    </div>
+                    <i></i>
+                </div>
+                <div class="xdsoft_label xdsoft_year">
+                    <span>2016</span>
+                    <div class="xdsoft_select xdsoft_yearselect xdsoft_scroller_box" style="display: none;">
+                        <div style="margin-top: 0px;">
+                            <div class="xdsoft_option " data-value="1950">1950</div>
+                            <div class="xdsoft_option " data-value="1951">1951</div>
+                            <div class="xdsoft_option " data-value="1952">1952</div>
+                            <div class="xdsoft_option " data-value="1953">1953</div>
+                            <div class="xdsoft_option " data-value="1954">1954</div>
+                            <div class="xdsoft_option " data-value="1955">1955</div>
+                            <div class="xdsoft_option " data-value="1956">1956</div>
+                            <div class="xdsoft_option " data-value="1957">1957</div>
+                            <div class="xdsoft_option " data-value="1958">1958</div>
+                            <div class="xdsoft_option " data-value="1959">1959</div>
+                            <div class="xdsoft_option " data-value="1960">1960</div>
+                            <div class="xdsoft_option " data-value="1961">1961</div>
+                            <div class="xdsoft_option " data-value="1962">1962</div>
+                            <div class="xdsoft_option " data-value="1963">1963</div>
+                            <div class="xdsoft_option " data-value="1964">1964</div>
+                            <div class="xdsoft_option " data-value="1965">1965</div>
+                            <div class="xdsoft_option " data-value="1966">1966</div>
+                            <div class="xdsoft_option " data-value="1967">1967</div>
+                            <div class="xdsoft_option " data-value="1968">1968</div>
+                            <div class="xdsoft_option " data-value="1969">1969</div>
+                            <div class="xdsoft_option " data-value="1970">1970</div>
+                            <div class="xdsoft_option " data-value="1971">1971</div>
+                            <div class="xdsoft_option " data-value="1972">1972</div>
+                            <div class="xdsoft_option " data-value="1973">1973</div>
+                            <div class="xdsoft_option " data-value="1974">1974</div>
+                            <div class="xdsoft_option " data-value="1975">1975</div>
+                            <div class="xdsoft_option " data-value="1976">1976</div>
+                            <div class="xdsoft_option " data-value="1977">1977</div>
+                            <div class="xdsoft_option " data-value="1978">1978</div>
+                            <div class="xdsoft_option " data-value="1979">1979</div>
+                            <div class="xdsoft_option " data-value="1980">1980</div>
+                            <div class="xdsoft_option " data-value="1981">1981</div>
+                            <div class="xdsoft_option " data-value="1982">1982</div>
+                            <div class="xdsoft_option " data-value="1983">1983</div>
+                            <div class="xdsoft_option " data-value="1984">1984</div>
+                            <div class="xdsoft_option " data-value="1985">1985</div>
+                            <div class="xdsoft_option " data-value="1986">1986</div>
+                            <div class="xdsoft_option " data-value="1987">1987</div>
+                            <div class="xdsoft_option " data-value="1988">1988</div>
+                            <div class="xdsoft_option " data-value="1989">1989</div>
+                            <div class="xdsoft_option " data-value="1990">1990</div>
+                            <div class="xdsoft_option " data-value="1991">1991</div>
+                            <div class="xdsoft_option " data-value="1992">1992</div>
+                            <div class="xdsoft_option " data-value="1993">1993</div>
+                            <div class="xdsoft_option " data-value="1994">1994</div>
+                            <div class="xdsoft_option " data-value="1995">1995</div>
+                            <div class="xdsoft_option " data-value="1996">1996</div>
+                            <div class="xdsoft_option " data-value="1997">1997</div>
+                            <div class="xdsoft_option " data-value="1998">1998</div>
+                            <div class="xdsoft_option " data-value="1999">1999</div>
+                            <div class="xdsoft_option " data-value="2000">2000</div>
+                            <div class="xdsoft_option " data-value="2001">2001</div>
+                            <div class="xdsoft_option " data-value="2002">2002</div>
+                            <div class="xdsoft_option " data-value="2003">2003</div>
+                            <div class="xdsoft_option " data-value="2004">2004</div>
+                            <div class="xdsoft_option " data-value="2005">2005</div>
+                            <div class="xdsoft_option " data-value="2006">2006</div>
+                            <div class="xdsoft_option " data-value="2007">2007</div>
+                            <div class="xdsoft_option " data-value="2008">2008</div>
+                            <div class="xdsoft_option " data-value="2009">2009</div>
+                            <div class="xdsoft_option " data-value="2010">2010</div>
+                            <div class="xdsoft_option " data-value="2011">2011</div>
+                            <div class="xdsoft_option " data-value="2012">2012</div>
+                            <div class="xdsoft_option " data-value="2013">2013</div>
+                            <div class="xdsoft_option " data-value="2014">2014</div>
+                            <div class="xdsoft_option " data-value="2015">2015</div>
+                            <div class="xdsoft_option xdsoft_current" data-value="2016">2016</div>
+                            <div class="xdsoft_option " data-value="2017">2017</div>
+                            <div class="xdsoft_option " data-value="2018">2018</div>
+                            <div class="xdsoft_option " data-value="2019">2019</div>
+                            <div class="xdsoft_option " data-value="2020">2020</div>
+                            <div class="xdsoft_option " data-value="2021">2021</div>
+                            <div class="xdsoft_option " data-value="2022">2022</div>
+                            <div class="xdsoft_option " data-value="2023">2023</div>
+                            <div class="xdsoft_option " data-value="2024">2024</div>
+                            <div class="xdsoft_option " data-value="2025">2025</div>
+                            <div class="xdsoft_option " data-value="2026">2026</div>
+                            <div class="xdsoft_option " data-value="2027">2027</div>
+                            <div class="xdsoft_option " data-value="2028">2028</div>
+                            <div class="xdsoft_option " data-value="2029">2029</div>
+                            <div class="xdsoft_option " data-value="2030">2030</div>
+                            <div class="xdsoft_option " data-value="2031">2031</div>
+                            <div class="xdsoft_option " data-value="2032">2032</div>
+                            <div class="xdsoft_option " data-value="2033">2033</div>
+                            <div class="xdsoft_option " data-value="2034">2034</div>
+                            <div class="xdsoft_option " data-value="2035">2035</div>
+                            <div class="xdsoft_option " data-value="2036">2036</div>
+                            <div class="xdsoft_option " data-value="2037">2037</div>
+                            <div class="xdsoft_option " data-value="2038">2038</div>
+                            <div class="xdsoft_option " data-value="2039">2039</div>
+                            <div class="xdsoft_option " data-value="2040">2040</div>
+                            <div class="xdsoft_option " data-value="2041">2041</div>
+                            <div class="xdsoft_option " data-value="2042">2042</div>
+                            <div class="xdsoft_option " data-value="2043">2043</div>
+                            <div class="xdsoft_option " data-value="2044">2044</div>
+                            <div class="xdsoft_option " data-value="2045">2045</div>
+                            <div class="xdsoft_option " data-value="2046">2046</div>
+                            <div class="xdsoft_option " data-value="2047">2047</div>
+                            <div class="xdsoft_option " data-value="2048">2048</div>
+                            <div class="xdsoft_option " data-value="2049">2049</div>
+                            <div class="xdsoft_option " data-value="2050">2050</div>
+                        </div>
+                        <div class="xdsoft_scrollbar">
+                            <div class="xdsoft_scroller" style="height: 10px; margin-top: 0px; display: block;"></div>
+                        </div>
+                    </div>
+                    <i></i>
+                </div>
+                <button class="xdsoft_next" style="visibility: visible;" type="button"></button>
+            </div>
+            <div class="xdsoft_calendar">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_disabled xdsoft_other_month xdsoft_weekend" data-year="2016" data-month="2" data-date="27">
+                                <div>27</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_disabled xdsoft_other_month" data-year="2016" data-month="2" data-date="28">
+                                <div>28</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_disabled xdsoft_other_month" data-year="2016" data-month="2" data-date="29">
+                                <div>29</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_disabled xdsoft_other_month" data-year="2016" data-month="2" data-date="30">
+                                <div>30</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_disabled xdsoft_other_month" data-year="2016" data-month="2" data-date="31">
+                                <div>31</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="1">
+                                <div>1</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="2">
+                                <div>2</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="3">
+                                <div>3</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="4">
+                                <div>4</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="5">
+                                <div>5</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="6">
+                                <div>6</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="7">
+                                <div>7</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="8">
+                                <div>8</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="9">
+                                <div>9</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="10">
+                                <div>10</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="11">
+                                <div>11</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="12">
+                                <div>12</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="13">
+                                <div>13</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="14">
+                                <div>14</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="15">
+                                <div>15</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="16">
+                                <div>16</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="17">
+                                <div>17</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="18">
+                                <div>18</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="19">
+                                <div>19</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="20">
+                                <div>20</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="21">
+                                <div>21</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="22">
+                                <div>22</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="23">
+                                <div>23</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week0 xdsoft_date xdsoft_disabled xdsoft_weekend" data-year="2016" data-month="3" data-date="24">
+                                <div>24</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week1 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="25">
+                                <div>25</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week2 xdsoft_date xdsoft_disabled" data-year="2016" data-month="3" data-date="26">
+                                <div>26</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week3 xdsoft_date xdsoft_today" data-year="2016" data-month="3" data-date="27">
+                                <div>27</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week4 xdsoft_date xdsoft_current" data-year="2016" data-month="3" data-date="28">
+                                <div>28</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week5 xdsoft_date" data-year="2016" data-month="3" data-date="29">
+                                <div>29</div>
+                            </td>
+                            <td title="" class="xdsoft_date xdsoft_day_of_week6 xdsoft_date xdsoft_weekend" data-year="2016" data-month="3" data-date="30">
+                                <div>30</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="xdsoft_save_selected blue-gradient-button" style="display: none;" type="button">Save Selected</button>
+        </div>
+        <div class="xdsoft_timepicker">
+            <button class="xdsoft_prev" type="button"></button>
+            <div class="xdsoft_time_box xdsoft_scroller_box">
+                <div class="xdsoft_time_variant" style="margin-top: 0px;">
+                    <div class="xdsoft_time xdsoft_current" data-minute="0" data-hour="0">00:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="1">01:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="2">02:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="3">03:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="4">04:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="5">05:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="6">06:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="7">07:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="8">08:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="9">09:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="10">10:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="11">11:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="12">12:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="13">13:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="14">14:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="15">15:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="16">16:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="17">17:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="18">18:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="19">19:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="20">20:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="21">21:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="22">22:00</div>
+                    <div class="xdsoft_time " data-minute="0" data-hour="23">23:00</div>
+                </div>
+                <div class="xdsoft_scrollbar">
+                    <div class="xdsoft_scroller" style="height: 10px; margin-top: 0px; display: block;"></div>
+                </div>
+            </div>
+            <button class="xdsoft_next" type="button"></button>
+        </div>
+    </div>
+    <bl style="display: none;"><img title="Web Essentials" class="logo" draggable="true" alt="Web Essentials" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAMAAAC7IEhfAAACplBMVEX/////AAB/AAD/fwD/VQD/Pz//VSriVBzdRCLuVSLfTx/hSy3lTCbdTSHfSirgUSjjSCTlTCLkSSjkUCjmTiTiTyfoTyfhTifiTCbmTCbjTSThSyXkTCbkSyXjSyXjTiXjTCTjSyTkTSbiTCTlTCTjSyXkTSXkTCTiSyfkTCblTSbjTCbkTCbkTCXlTSbjTCbiTSbkTCblTSXkTSXkTSXkTCXjTSXjTSbkTSXjTSXjTSbkTSXkTSbjTCbjTSXkTCbkTCbiTSbkTSbjTCbjTSXjTCXjTSbjTCXkTCXjTCXkTCXjTCXjTSXjTCbjTSbkTSbjTCbkTSbkTCbjTCbjTSbjTCXkTCbkTSbjTSbjTCXkTSbjTCXjTSXkTSXjTCbkTSb////xZSnkTibrWSjoVCftXijpVifqVyfqWCfqd1rlTibrWijtXSjob1DvYinwZivxZCnlTybyfUr0jmL6z7376OP76uX97+r99PL99/T9+ffmUSbpVyfmUCbkUCnqWSfmUSfqfGDmXzzmYT/rWyjrfmLsWyjsXCjsbkbsiG7mZUTnUiftflvtinDtkHjuXyjuYCjulH3vYSjnUyfwYinwZCnnYT/waC3nZEPnZkTxazHxcDjxcDnxcTryeETye0jyfErnZkXyfk3ysJ/zglHzi1/zjF/zjWLztaXztqb0i17kUCr0kmn0u6z1mXH1rZH2poP2yLz2zsP3rY73r5D30cf4w674xK741s75zLj50L753NXoVSf65uD73M/74db75Nr75uD75+LobU3obk776ub77Oj77ur859z86OD88Ov88e/88/D89fT97+njTyn98ezjUSvlUCb99/X9+Pb9+Pfpdln+9fL+9/X++ff++vj/+/n//Pv//fz//f3pd1rpeFv//v6yzbn+AAAAX3RSTlMAAQICAwQGCQ8PEBEUFxgZHB4mJiotLTQ1NTg9Q0RKS1NUVlpaXmBhYmpwcXJ1d3h9f4CHjo+Xl5uenqSlpqittLW5u7zExsvL0tLY2dvh4eLk6Onq7O/w8fL3+fv7/UUm+e4AAAJFSURBVHhehdJlYxQ7GIbhLO5erEhxitNiRU6RLl5cCpQ+mZW6u+Du7u7u7u7ubuefMJkkm2F2u70/JXmvT0kIIVEoqShiFFkijOTQDkuODHOJgJ3DcCt0auZWA+Ec9vQPk4EeHIb4hwuAEA6D/cPZQDCHQf7hDCCIw0Bf8PCXy1lpBnQBgRzW9gEPFlJK75zZocPlQC0OK3nDQ7pjFehwJlCBQ9s0Kzz2gSrowFQb4Y2G3tu5kK34ShXcCIwioqEAVj2m52Zx9+k9NcFUYIiEAwBc149z7jOXwF2hgGuA/hL2FpDmrwR+f2arb6euCegGwiQMNeDZu5T+3J/wnIEnB7RsARcBoRK2N+CReTf10f9snr1T80An0E7Clhxi/j1KmT29WVMwDmghYWMBsdSAJ52aCd4AGklYV8CUFwb8dWm7Ca4HAiSsyuED5j6y+a3dChYBVSQsG8PgxXxKX67dksNAXpYHJiK6DJGNF/f48A+wNZetfpwX95gOjCOehnN4ZRP0lj2iIgY3AMMUjAAW5tKjx2G0l0kJ1wCDFOwL4HUKZEteKegG+ijY3fIf9zzzwMVANwU7W6CWmcfh021JQCcF21qhlvmG0u9XT6Rp8UAbBZt6QW3f7Qu7NL1YoImC9a1Q5QLqKVizeDgHqKFg+WJhagZiyhHVFF8w3R1XBGASMTXSC65LcjlgNMIMq7f+b6KC8cmx78Cb0K9VNfJvpRt2HTwd5qLtXRqUIj6r3DxsrFBjejWrSPxlC+gYMXlghzrE2l/nse3AksfajAAAAABJRU5ErkJggg=="><blbar><blbutton title="Use CTRL+ALT+D to enable Design Mode">Design</blbutton><blbutton title="Use CTRL+ALT+I to enable Inspect Mode">Inspect</blbutton><blbutton title="Use CTRL+ALT+T to sync the current CSS changes into Visual Studio">Save F12 changes</blbutton><blcheckbox><label title="Use CTRL+ALT+U to continuously sync CSS changes into Visual Studio" style="font-weight: normal;" for="_0_6748205544396397">F12 auto-sync<input title="Use CTRL+ALT+U to continuously sync CSS changes into Visual Studio" id="_0_6748205544396397" type="checkbox"></label></blcheckbox><blcheckbox><label title="This will auto-hide this menu. Click the CTRL key to make it visible" style="font-weight: normal;" for="_0_6521629819507493">Auto-hide<input title="This will auto-hide this menu. Click the CTRL key to make it visible" id="_0_6521629819507493" type="checkbox"></label></blcheckbox></blbar></bl>
+    <style>
+        bl {
+            position: fixed;
+            left: 10px;
+            bottom: 5px;
+            opacity: .3;
+            color: black;
+            z-index: 2147483638;
+        }
+
+            bl:hover {
+                opacity: .95;
+            }
+
+            bl .logo {
+                width: 40px;
+                margin-right: 8px;
+                vertical-align: baseline;
+            }
+
+        blbar {
+            background: #d8d8d8;
+            display: inline-block;
+            font: 13px arial;
+            position: relative;
+            top: -15px;
+            border-radius: 5px;
+            padding: 4px 3px;
+        }
+
+            blbar img {
+                margin: -2px 0 0 2px;
+            }
+
+            blbar label {
+                display: inline;
+                cursor: pointer;
+                font: 13px arial;
+            }
+
+            blbar blcheckbox {
+                margin: 0 4px;
+            }
+
+                blbar blbutton, blbar blcheckbox:not(:last-child) {
+                    border-right: 1px solid #b8b6b6;
+                    padding-right: 7px;
+                }
+
+            blbar input {
+                margin: -3px auto auto 3px !important;
+                vertical-align: middle;
+            }
+
+            blbar blbutton:not([disabled]) {
+                cursor: pointer;
+                display: inline-block;
+                margin: 0 4px;
+            }
+
+            blbar blbutton:hover {
+                text-decoration: underline;
+            }
+
+        .bldisabled {
+            cursor: default !important;
+            opacity: .5;
+        }
+
+            .bldisabled:hover {
+                text-decoration: none;
+            }
+    </style>
+</body>
+</html>
