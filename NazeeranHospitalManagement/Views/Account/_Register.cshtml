@@ -1,0 +1,60 @@
+﻿@model RegisterViewModel
+
+@if (Model.Errors != null && Model.Errors.Count > 0)
+{
+    Html.RenderPartial("_DisplayErrors", Model.Errors);
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="field-wrap">
+        <label>
+            Full Name<span class="req">*</span>
+        </label>
+        @Html.TextBoxFor(model => model.FullName, format: "", htmlAttributes: new { })
+    </div>
+
+    <div class="field-wrap">
+        <label>
+            User Name<span class="req">*</span>
+        </label>
+        @Html.TextBoxFor(model => model.UserName, format: "", htmlAttributes: new { })
+    </div>
+
+    <div class="field-wrap">
+        <label>
+            Email<span class="req">*</span>
+        </label>
+        @Html.TextBoxFor(model => model.Email, format: "", htmlAttributes: new { })
+    </div>
+
+    <div class="field-wrap">
+        <label>
+            Cnic<span class="req">*</span>
+        </label>
+        @Html.TextBoxFor(model => model.Cnic, format: "", htmlAttributes: new { })
+    </div>
+
+    <div class="field-wrap">
+        <label>
+            Password<span class="req">*</span>
+        </label>
+        @Html.TextBoxFor(model => model.Password, format: "", htmlAttributes: new { type = "password" })
+    </div>
+
+    <div class="field-wrap">
+        <label>
+            Re-Enter Password<span class="req">*</span>
+        </label>
+        @Html.TextBoxFor(model => model.ConfirmPassword, format: "", htmlAttributes: new { type = "password" })
+    </div>
+
+    <button class="button button-block" type="submit">Register</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
