@@ -1,0 +1,58 @@
+﻿@model LoginRegisterViewModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+@Styles.Render("~/Content/signin_signup_css")
+
+<style type="text/css">
+    div#Login input[type="text"] {
+        /*color: #00C;*/
+        /*font-family: Arial, Helvetica, sans-serif;*/
+    }
+
+    div#Login input:not([type="checkbox"]), div.form textarea {
+        background-color: rgba(68, 135, 132, 1);
+    }
+
+    div#Login label {
+        color: #fff;
+        font-size: 15px;
+        font-family: inherit;
+    }
+
+    div#Login div.form span .req {
+        color: #FFF;
+    }
+
+    div#Login label .req {
+        color: #F5F5F5;
+    }
+
+    div#Login a {
+        color: #FFF;
+        font-family: inherit;
+    }
+
+    div#Login .field-wrap span {
+        color: #F5F5F5;
+        font-family: inherit;
+        font-size: 15px;
+    }
+</style>
+
+<!-- Login Form -->
+
+<div class="form min-heigth-box">
+    <div class="tab-content">
+        <div id="Login" class="tab-pane fade in active">
+            <h1>Welcome to Nazeraan Hospital System.</h1>
+            @Html.Partial("_Login", model: Model.LoginModel)
+        </div>
+    </div>
+</div>
+
+<!-- Login Form -->
+
+@Scripts.Render("~/Content/signin_signup_js")

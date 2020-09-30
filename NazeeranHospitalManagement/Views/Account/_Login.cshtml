@@ -1,0 +1,22 @@
+﻿@model LoginViewModel
+
+@if (Model.Errors != null && Model.Errors.Count > 0)
+{
+    Html.RenderPartial("_DisplayErrors", Model.Errors);
+}
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="field-wrap">
+        @Html.TextBoxFor(model => model.Email, new {  placeholder = "Email"})
+    </div>
+
+    <div class="field-wrap">
+        @Html.TextBoxFor(model => model.Password, format: "", htmlAttributes: new { type = "password", placeholder = "Password" })
+    </div>
+        <button class="button button-block" type="submit" id="login-btn">Log In</button>
+}
+
+
