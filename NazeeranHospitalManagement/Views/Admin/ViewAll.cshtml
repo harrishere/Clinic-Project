@@ -1,0 +1,75 @@
+﻿@model ViewAllViewModel
+
+@{
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardAdminPartial;
+    ViewBag.Title = "View All";
+    Page.Title = "View All";
+}
+
+<form method="get" action="@Url.Action("SearchMedidicne", "Medicine")"
+      data-ppims-ajax="true" data-ppims-target="#prescribed-medicines-panel table tbody">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="custom-search-input">
+                    <div class="input-group">
+                        <input type="text" id="ab12" name="Name" class="search-query form-control" placeholder="Search by Name" data-ppims-autocomplete="@Url.Action("SearchMedidicne", "Medicine")" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="input-group">
+                    <input type="text" name="ChemicalComposition" class="search-query1 form-control" placeholder="Search by Email" data-ppims-autocomplete="@Url.Action("SearchMedidicne", "Medicine")" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+<table id="tableDetails" class="table table-striped table-bordered" cellspacing="0" width=20>
+    <tr class="info">
+        <th>Full Name</th>
+        <th>User Name</th>
+        <th>Cnic</th>
+        <th>Email</th>
+        <th>Gender</th>
+        <th>@Html.AntiForgeryToken()</th>
+    </tr>
+
+    @foreach (var item in Model.Users)
+    {
+        <tr data-ppims-personId="@item.Id">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cnic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditPerson", new { personId = item.Id }, new { @class = "btn btn-info btn-sm", target = "_blank" })
+                <button class="btn btn-danger btn-sm" id="deletePerson">Delete</button>
+            </td>
+        </tr>
+    }
+</table>
