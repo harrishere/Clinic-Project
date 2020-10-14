@@ -1,0 +1,90 @@
+﻿@model PagedList.IPagedList<ViewDoctorViewModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "ViewDoctor";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardAdminPartial;
+    Page.Title = "View All Doctor";
+}
+
+<form method="get" action="@Url.Action("SearchMedidicne", "Medicine")"
+      data-ppims-ajax="true" data-ppims-target="#prescribed-medicines-panel table tbody">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="custom-search-input">
+                    <div class="input-group">
+                        <input type="text" id="ab12" name="Name" class="search-query form-control" placeholder="Search by Name" data-ppims-autocomplete="@Url.Action("SearchMedidicne", "Medicine")" />
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="input-group">
+                    <input type="text" name="ChemicalComposition" class="search-query1 form-control" placeholder="Search by Department" data-ppims-autocomplete="@Url.Action("SearchMedidicne", "Medicine")" />
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+<table id="doctorsList" class="table table-striped table-bordered" cellspacing="0" width=20>
+    @Html.AntiForgeryToken()
+
+    <tr class="info">
+        <th>Full Name</th>
+        <th>User Name</th>
+        <th>Email</th>
+        <th>Cnic</th>
+        <th>Gender</th>
+        <th>Department Name</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr data-doctorId="@item.Key">
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cnic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditDoctor", new { id = item.Key }, new { @class = "btn btn-info btn-sm" })
+                @Html.ActionLink("Schedule", "ManageDoctorSchedule", new { doctorId = item.Key }, new { @class = "btn btn-info btn-sm", target = "_blank" })
+                @Html.ActionLink("Delete", "DeleteDoctor", new { id = item.Key }, new { @class = "btn btn-danger btn-sm btnDeleteDoctor" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+<br />
+@Html.PagedListPager(Model, page => Url.Action("ViewDoctor", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
