@@ -1,0 +1,82 @@
+﻿@model PagedList.IPagedList<ViewDoctorScheduleAdminViewModel>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Manage Doctor Schedule";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardAdminPartial;
+    Page.Title = $"Manage {ViewBag.DoctorName} Schedule";
+}
+
+<table id="doctorScheduleList" class="table table-striped table-bordered" cellspacing="0" width=20>
+    @Html.AntiForgeryToken()
+
+    <tr class="info">
+        <th>Day</th>
+        <th>Arrival Time</th>
+        <th>Leave Time</th>
+        <th>Average Time Per Patient</th>
+        <th>
+            <button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add Schedule.</button>
+            <div class="clearfix"></div>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td class="hidden">
+            @Html.HiddenFor(modelItem => item.ScheduleId)
+            @Html.HiddenFor(modelItem => item.Day)
+            @Html.HiddenFor(modelItem => item.ArrivalTime)
+            @Html.HiddenFor(modelItem => item.LeaveTime)
+            @Html.HiddenFor(modelItem => item.AverageTime)
+        </td>
+        <td class="Day">@Html.DisplayFor(modelItem => item.Day)</td>
+        <td class="ArrivalTime">@Html.DisplayFor(modelItem => item.ArrivalTime)</td>
+        <td class="LeaveTime">@Html.DisplayFor(modelItem => item.LeaveTime)</td>
+        <td class="AverageTime">@Html.DisplayFor(modelItem => item.AverageTime) Mins.</td>
+        <td>
+            <button class="btn btn-info btn-sm editDoctorSchedule">Edit</button>
+            <button class="btn btn-danger btn-sm deleteDoctorSchedule">Delete Doctor Schedule</button>
+        </td>
+    </tr>
+    }
+
+</table>
+
+<div class="modal fade" id="AddModal" data-ppims-doctorId="@ViewBag.UserId">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><b>Add schedule for @ViewBag.DoctorName &hellip;</b></h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="panel panel-collapse" id="modelErrorList"></div>
+                @Html.AntiForgeryToken()
+                @Html.Partial("_AddEditDoctorSchedule", new AddEditDoctorScheduleAdminViewModel())
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel.</button>
+                <button type="button" class="btn btn-primary" id="saveSchedule">Save Schedule.</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /eidtmodal -->
+
+
+
+<br />
+
+@Html.PagedListPager(Model, page => Url.Action("ManageDoctorSchedule", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+
+
+
+
