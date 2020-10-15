@@ -1,0 +1,31 @@
+﻿@model IViewErrors
+
+@if (Model.Errors != null && Model.Errors.Count > 0)
+{
+    foreach (var error in Model.Errors)
+    {
+        <div class="panel panel-danger">
+            <ul class="list-unstyled">
+                <li class="list-group-item-danger">@error</li>
+            </ul>
+        </div>
+    }
+
+    <div class="hidden" id="alertUser">
+        <p id="header-message">Failed</p>
+        <p id="main-message">An Error Occured While Updating Doctor Recrod..!!!</p>
+        <p id="alert-type">warning</p>
+        <p id="confirm-button-class">btn-warning</p>
+    </div>
+}
+
+@if (Model.IsEditSuccessfully)
+{
+    <div class="hidden" id="alertUser">
+        <p id="header-message">Updated</p>
+        <p id="main-message">Doctor Recrod Is Updated Sussessfully...!!</p>
+        <p id="alert-type">success</p>
+        <p id="confirm-button-class">btn-success</p>
+    </div>
+}
+
