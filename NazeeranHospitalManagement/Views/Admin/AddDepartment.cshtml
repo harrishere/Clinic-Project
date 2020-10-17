@@ -1,0 +1,70 @@
+﻿@model Department
+
+@{
+    ViewBag.Title = "AddDepartment";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardAdminPartial;
+    Page.Title = "Add Department";
+
+    var status = ViewBag.Status as string;
+    string headerMessage = string.Empty, mainMessage = string.Empty, alertType = string.Empty, confirmButtonClass = string.Empty;
+    if(!string.IsNullOrEmpty(status))
+    {
+        if(status == "Success")
+        {
+            headerMessage = "Success!";
+            mainMessage = "Successfully Added Department.";
+            alertType = "success";
+            confirmButtonClass = "btn btn-success";
+        }
+        else if(status == "AlreadyExists")
+        {
+            headerMessage = "Error!";
+            mainMessage = "An Department Already Exists With This Name.";
+            alertType = "info";
+            confirmButtonClass = "btn btn-info";
+        }
+    }
+
+}
+
+@if(!string.IsNullOrEmpty(status))
+{
+    <div id="alertUser" class="hidden">
+        <p id="header-message">@headerMessage</p>
+        <p id="main-message">@mainMessage</p>
+        <p id="alert-type">@alertType</p>
+        <p id="confirm-button-class">@confirmButtonClass</p>
+    </div>
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Details, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Details, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                @Html.ValidationMessageFor(model => model.Details, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Department" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+}
+
