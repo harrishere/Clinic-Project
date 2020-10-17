@@ -1,0 +1,105 @@
+﻿@model DoctorBaseViewModel
+
+@{
+    ViewBag.Title = "AddDoctor";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardAdminPartial;
+    Page.Title = "Add Doctor";
+    var status = ViewBag.Status as string;
+    string headerMessage = string.Empty, mainMessage = string.Empty, alertType = string.Empty, confirmButtonClass = string.Empty;
+    if (!string.IsNullOrEmpty(status))
+    {
+        if (status == "Success")
+        {
+            headerMessage = "Success!";
+            mainMessage = $"Doctor Added Successfully.";
+            alertType = "success";
+            confirmButtonClass = "btn btn-success";
+        }
+    }
+}
+
+@if (!string.IsNullOrEmpty(status))
+{
+    <div id="alertUser" class="hidden">
+        <p id="header-message">@headerMessage</p>
+        <p id="main-message">@mainMessage</p>
+        <p id="alert-type">@alertType</p>
+        <p id="confirm-button-class">@confirmButtonClass</p>
+    </div>
+}
+
+@if (Model.Errors != null && Model.Errors.Count > 0)
+{
+    <div class="panel panel-collapse">
+        @foreach (string error in Model.Errors)
+        {
+            <div class="text-danger">@error</div>
+        }
+    </div>
+}
+
+@using (Html.BeginForm("AddDoctor", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Cnic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Cnic, new { htmlAttributes = new { @class = "form-control mask-cnic" } })
+                @Html.ValidationMessageFor(model => model.Cnic, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Gender, new SelectList(Enum.GetValues(typeof(Gender))), htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Departments, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedDepartment, Model.Departments, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Departments, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add Doctor" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+}
+
+
