@@ -1,0 +1,114 @@
+﻿@model SearchScheduleViewModel
+
+@{
+    ViewBag.Title = "Search Appointment";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+}
+
+<style type="text/css">
+    #searchScheduleForm {
+        background-color: #20B2AA;
+    }
+
+    .form-control {
+        color: #555;
+        font-size: 15px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    h2 {
+        color: #448885;
+    }
+
+    .container .form-horizontal .control-label {
+        color: #fff;
+        font-size: 13px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    select option {
+        background-color: #20B2AA;
+        color: #fff;
+    }
+</style>
+
+<div class="col-md-10 middle-align min-heigth-box">
+    <div class="container">
+        <h2 class="text-center">Book Appointments</h2>
+        <div class="shadow-box">
+            <div class="tab-pane fade in active" id="BookAppointment">
+                @if (Model.WantCancelling)
+                {
+                    <div class="min-padding-all">
+                        <p class="text-center">Your Old Appointment Details:</p>
+                        <p class="text-center"><strong>Patient Name:</strong> @Model.OldAppointment.PatientName</p>
+                        <p class="text-center"><strong>Appointment Id:</strong> @Model.OldAppointment.AppointmentId</p>
+                        <br />
+                        <p class="text-center">
+                            <strong>Date: </strong> @Model.OldAppointment.AppointmentTime.Date.ToShortDateString()        <strong>Time: </strong> @Model.OldAppointment.AppointmentTime.TimeOfDay.ToString()        <strong>Day: </strong> @Model.OldAppointment.Day
+                        </p>
+                        <br />
+                        <p class="text-center"><strong>Doctor Name:</strong> @Model.OldAppointment.DoctorName        <strong>Department Name:</strong> @Model.OldAppointment.DepartmentName</p>
+                    </div>
+                }
+
+                <div class="form-horizontal">
+                    @using (Html.BeginForm("GetSchedule", "GetAppointment", FormMethod.Get, new { id = "searchScheduleForm", @class = "min-botton-padding" }))
+                    {
+                        @Html.HiddenFor(model => Model.WantCancelling)
+                        @Html.HiddenFor(model => model.OldAppointmentId)
+
+                        <div class="panel-danger form-group col-md-push-2" id="error-panel">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SearchOption, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-9">
+                                @Html.EnumDropDownListFor(model => model.SearchOption, htmlAttributes: new { @class = "form-control", id = "SearchOptions" })
+                                @Html.ValidationMessageFor(model => model.DepartmentId, "", htmlAttributes: new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="hidden" id="SearchOption_ByName">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DoctorName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.DoctorName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.DoctorName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="SearchOption_ByDate" class="hidden">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-9">
+                                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control date" } })
+                                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="SearchOption_ByDepartment" class="hidden">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(model => model.DepartmentId, Model.DepartmentList, htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.DepartmentId, "", htmlAttributes: new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Search" class="btn btn-default hidden" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
