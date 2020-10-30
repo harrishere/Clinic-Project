@@ -1,0 +1,80 @@
+﻿@model IEnumerable<GetAppointmentViewModel>
+
+<thead>
+    <tr class="table-header">
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArrivalTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LeaveTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Day)
+        </th>
+        <th>
+            @Html.AntiForgeryToken()
+        </th>
+    </tr>
+</thead>
+
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="hidden">
+                @Html.HiddenFor(modelItem => item.DoctorId, htmlAttributes: new { @name = "DoctorId" })
+                @*@Html.HiddenFor(modelItem => item.DoctorName, htmlAttributes: new { @name = "DoctorName" })
+                @Html.HiddenFor(modelItem => item.ArrivalTime, htmlAttributes: new { @name = "StartDate" })
+                @Html.HiddenFor(modelItem => item.LeaveTime, htmlAttributes: new { @name = "EndDate" })*@
+                @Html.HiddenFor(modelItem => item.Day, htmlAttributes: new { @name = "Day" })
+                @*@Html.HiddenFor(modelItem => item.AverageTime, htmlAttributes: new { @name = "AverageTime" })*@
+                @Html.AntiForgeryToken()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ArrivalTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Day)
+            </td>
+            <td>
+                <button type="button" class="btn btn-success pull-right" name="btnBookAppointment">
+                    <i class="fa fa-calendar-plus-o"></i>
+                    Book Appointment
+                </button>
+                <button type="button" class="btn btn-success pull-right hidden" name="btnShowSlots">
+                    <i class="fa fa-eye"></i>
+                    View Time Slots.
+                </button>
+            </td>
+        </tr>
+
+        <tr class="hidden time-slot">
+            <td>Select Time Slot.</td>
+            <td colspan="4">
+                @{
+                    int TotalMins = (int)(item.LeaveTime.TimeOfDay - item.ArrivalTime.TimeOfDay).TotalMinutes;
+                    DateTime Time = item.LeaveTime;
+                    //TimeSpan Time = TimeSpan.FromMinutes(TotalMins);
+                    int AverateTime = (item.AverageTime <= 0) ? 15 : item.AverageTime;
+                    int TotalSlots = TotalMins / AverateTime;
+
+                    for (int i = 0; i <= TotalSlots; i++)
+                    {
+                        <button class="btn btn-success" name="btnSelectSlot">@Time.ToShortTimeString()</button>
+                        Time = Time.Subtract(TimeSpan.FromMinutes(AverateTime));
+                    }
+                }
+            </td>
+        </tr>
+
+    }
+</tbody>
