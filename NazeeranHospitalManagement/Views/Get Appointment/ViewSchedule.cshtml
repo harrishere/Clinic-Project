@@ -1,0 +1,80 @@
+﻿@model DoctorScheduleViewModel
+
+@{
+    ViewBag.Title = "View Schedule";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+}
+
+<div class="min-heigth-box">
+    <div class="container">
+        <div class="min-top-padding"></div>
+        <div class="table-details min-heigth-box">
+            <div class="row">
+                <div class="col-md-10 panel-danger text-danger hidden" id="statusPanel">
+                    @foreach (var errror in Model.Errors)
+                    {
+                        @errror
+                    }
+                </div>
+
+                @if (Model == null || Model.Appointments.Count() == 0)
+                {
+                    <div class="alert alert-danger">
+                        <div class="text-danger">
+                            Sorry, No Schedule For The Doctor Has Been Found Under Your Selected Criteria...!!!
+                            @Html.ActionLink("Click Here to Search Again", "SearchSchedule", null, htmlAttributes: new { @class = "" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-11 middle-align">
+                        @if (Model.WantCancelling)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="well">
+                                        <p class="text-center">Your Old Appointment Details:</p>
+                                        <p class="text-center"><strong>Patient Name:</strong> @Model.OldAppointment.PatientName</p>
+                                        <p class="text-center"><strong>Appointment Id:</strong> @Model.OldAppointment.AppointmentId</p>
+                                        <br />
+                                        <p class="text-center">
+                                            <strong>Date: </strong> @Model.OldAppointment.AppointmentTime.Date.ToShortDateString()        <strong>Time: </strong> @Model.OldAppointment.AppointmentTime.TimeOfDay.ToString()        <strong>Day: </strong> @Model.OldAppointment.Day
+                                        </p>
+                                        <br />
+                                        <p class="text-center"><strong>Doctor Name:</strong> @Model.OldAppointment.DoctorName        <strong>Department Name:</strong> @Model.OldAppointment.DepartmentName</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col col-xs-6">
+                                            <h4 class="panel-title text-center">@Model.DoctorName Schedules!</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="clearfix"></div>
+                                @Html.Partial("_ShowTimeSlots", Model)
+                            </div>
+
+                            <div class="panel-footer">
+                                <div class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_PatientDetails", Model.WantCancelling ? Model.BookAppointmentViewModel : new BookAppointmentViewModel())
+
