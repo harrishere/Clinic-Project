@@ -1,0 +1,113 @@
+﻿@model BookAppointmentViewModel
+
+@{
+    ViewBag.Title = "FinalAppointent";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+}
+
+<div class="min-heigth-box">
+    <div class="min-top-margin">
+        <div class="container">
+            <div class="col-md-10 middle-align">
+                <div class="shadow-box">
+                    <div class="panel panel-default min-padding-all">
+                        @if (!Model.IsAppointmentBook && (Model.Errors != null || Model.Errors.Count > 0))
+                        {
+                            <div class="alert alert-danger">
+                                <div class="text-danger">
+                                    @foreach (var err in Model.Errors)
+                                    {
+                                        <p>@err</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title text-center">Appointment Booked</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <h5 class="panel-info text-center">Congratulations! You Appointment Is Booked</h5>
+                                    <h5 class="panel-info text-center">
+                                        A Message Has Been Sent To Your Mobile..!!
+                                        <span class="text-success">@Model.ContactNo</span>
+                                    </h5>
+                                    <h5 class="panel-info text-center">Please Reach Atleast Half Hour Before Your Appointment Time!</h5>
+                                    <h5 class="panel-info text-center min-top-margin">
+                                        Your Appointment Id Is:
+                                        <span class="text-info">@Model.AppointmentId</span> Please Keep This While Cancelling or Viewing Details Of The Appointment...!!
+                                    </h5>
+
+                                    <div class="jumbotron" style="padding-top: -10px;">
+                                        <h3 class="text-center">Appointment Details</h3>
+                                        <dl class="dl-horizontal">
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.AppointmentNo)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.AppointmentNo)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.PatientId)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.PatientId)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.PatientName)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.PatientName)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.DoctorName)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.DoctorName)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Date)
+                                            </dt>
+
+                                            <dd>
+                                                @{ string Date = Model.Date.ToLongDateString();}
+                                                @Html.DisplayFor(model => Date)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Date.TimeOfDay)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Date.TimeOfDay)
+                                            </dd>
+
+                                            <dt>
+                                                @Html.DisplayNameFor(model => model.Status)
+                                            </dt>
+
+                                            <dd>
+                                                @Html.DisplayFor(model => model.Status)
+                                            </dd>
+
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                                                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
