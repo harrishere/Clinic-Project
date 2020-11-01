@@ -1,0 +1,72 @@
+﻿@model ViewAppointmentViewModel
+
+@{
+    ViewBag.Title = "Appointment";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+}
+<div class="container-fluid">
+    <div class="container">
+        <div class="shadow-box min-padding-all min-top-margin min-bottom-margin">
+            <h2 class="text-center">Appointment Details</h2>
+            @using (Html.BeginForm("Cancel", "GetAppointment", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.AppointmentId)
+                <div class="">
+                    <h4 class="text-center">Your Appointment Details!</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DoctorName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DoctorName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.DepartmentName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.DepartmentName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.AppointmentTime)
+                        </dt>
+
+                        <dd>
+                            @{ var Time = Model.AppointmentTime.ToShortTimeString(); }
+                            @Html.DisplayFor(model => Time)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.PatientName)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.PatientName)
+                        </dd>
+
+                        <dt>
+                            @Html.DisplayNameFor(model => model.Status)
+                        </dt>
+
+                        <dd>
+                            @Html.DisplayFor(model => model.Status)
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="min-top-margin">
+                    @*<button type="submit" class="btn btn-danger pull-right">
+                            <i class="glyphicon glyphicon-remove"></i> Cancel
+                        </button>*@
+                </div>
+                <div class="clearfix"></div>
+                                }
+        </div>
+    </div>
+</div>
