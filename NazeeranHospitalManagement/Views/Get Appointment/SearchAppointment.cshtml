@@ -1,0 +1,81 @@
+﻿@model SearchAppointmentViewModel
+
+@{
+    ViewBag.Title = "SearchAppointment";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+}
+
+<h2 class="text-center">Appointment Details</h2>
+
+@if (Model.IsFound)
+{
+    <div class="container">
+        <div class="min-padding-all">
+            <div class="">
+                <div class="shadow-box">
+                    <div class="min-padding-all">
+                        <dl class="dl-horizontal">
+                            <dt>@Html.DisplayNameFor(model => model.AppointmentId)</dt>
+                            <dd>@Html.DisplayFor(model => model.AppointmentId)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.AppointmentNo)</dt>
+                            <dd>@Html.DisplayFor(model => model.AppointmentNo)</dd>
+
+                            <dt>Patient Cnic</dt>
+                            <dd>@Html.DisplayFor(model => model.Cnic)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.DoctorName)</dt>
+                            <dd>@Html.DisplayFor(model => model.DoctorName)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Date)</dt>
+                            <dd>@Html.DisplayFor(model => model.Date)</dd>
+
+                            <dt>@Html.DisplayNameFor(model => model.Time)</dt>
+                            <dd>@Html.DisplayFor(model => model.Time) PST</dd>
+
+                            <dt>Appointment Status.</dt>
+                            <dd>@Html.DisplayFor(model => model.State)</dd>
+                        </dl>
+                    </div>
+
+                    <div class="min-padding-all">
+                        <div class="hidden" id="appointmentDetails">
+                            @Html.HiddenFor(model => model.AppointmentId)
+                            @Html.AntiForgeryToken()
+                        </div>
+                        @if (Model.State == AppointmentStatus.Scheduled || Model.State == AppointmentStatus.Pending)
+                        {
+                            if (Model.WantCancelling)
+                            {
+                                using (Html.BeginForm("SearchSchedule", "GetAppointment", FormMethod.Get, new { @class = "form-inline" }))
+                                {
+                                    @Html.HiddenFor(modelItem => Model.AppointmentId, new { Name = "OldAppointmentId" })
+                                    @Html.HiddenFor(model => Model.WantCancelling)
+                                    <button type="submit" value="Reschedule" class="btn btn-success hvr-sweep-to-right" id="btnRescheduleAppointment">Reschedule</button>
+                                }
+                            }
+                            else
+                            {
+                                <button type="button" value="Cancel" class="btn btn-success hvr-sweep-to-right" id="btnCancelAppointment">Cancel</button>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="min-heigth-box min-padding-all">
+        <div class="shadow-box min-padding-all">
+            <p class="text-danger text-center">
+                Sorry! No Appointment Is Found...!!!<br />
+                Enter A Valid Cnic and Appointment Id.
+            </p>
+        </div>
+    </div>
+}
+
+
