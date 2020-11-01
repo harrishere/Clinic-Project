@@ -1,0 +1,40 @@
+﻿@model Appointment
+
+@{
+    ViewBag.Title = "GetAppointment";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+}
+
+<div class="container-fluid min-heigth-box">
+    <dl class="well">
+        <dt class="text-success">
+            You Appointment Details
+        </dt>
+        <dd></dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppointmentNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+    </dl>
+</div>
+
