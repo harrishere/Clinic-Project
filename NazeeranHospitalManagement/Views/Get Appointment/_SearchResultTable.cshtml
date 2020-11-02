@@ -1,0 +1,44 @@
+﻿@model IEnumerable<ViewDoctorsViewModel>
+
+<thead>
+    <tr class="table-header">
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th>
+            @Html.AntiForgeryToken()
+        </th>
+    </tr>
+</thead>
+
+<tbody>
+    @{
+        int totalItems = Model.Count();
+    }
+
+    @for (int i = 0; i < totalItems; i++)
+    {
+        var item = Model.ElementAt(i);
+        <tr>
+            <td class="hidden">
+                @Html.HiddenFor(modelItem => item.DoctorId, htmlAttributes: new { @name = "DoctorId" })
+                @Html.AntiForgeryToken()
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DoctorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                <a href="@Url.Action("ViewSchedule", "GetAppointment", new { DoctorId = item.DoctorId })">
+                    <i class="fa fa-eye"></i>
+                    View Schedule
+                </a>
+            </td>
+        </tr>
+    }
+</tbody>
