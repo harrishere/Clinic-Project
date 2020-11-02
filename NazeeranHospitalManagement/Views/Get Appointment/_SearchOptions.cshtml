@@ -1,0 +1,91 @@
+﻿@model SearchScheduleViewModel
+
+@if (!Model.IsFiltered)
+{
+    <div class="">
+        @using (Html.BeginForm("GetSchedule", "GetAppointment", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="input-group col-md-4">
+                <span class="input-group-addon">Filter Results By</span>
+                <select name="FilterOption" class="form-control" id="SearchOptions">
+                    @foreach (SearchBy so in Enum.GetValues(typeof(SearchBy)))
+                    {
+                        if (Model.SearchOption != so)
+                        {
+                            <option value="@((int)so)">@so</option>
+                        }
+                    }
+                </select>
+
+            </div>
+
+            <div class="input-group">
+                @if (Model.SearchOption != SearchBy.Name)
+                {
+                    <div id="SearchOption_ByName" class="hidden">
+                        <div class="input-group">
+                            @Html.LabelFor(model => model.DoctorName, htmlAttributes: new { @class = "input-group-addon" })
+                            @Html.EditorFor(model => model.DoctorName, new { htmlAttributes = new { @class = "form-control" } })
+                            <div class="col-md-7">
+                                @Html.ValidationMessageFor(model => model.DoctorName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.SearchOption != SearchBy.Dates)
+                {
+                    <div id="SearchOption_ByDate" class="hidden">
+                        <div class="input-group">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "input-group-addon" })
+                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control date" } })
+                            <div class="col-md-10">
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.SearchOption != SearchBy.Department)
+                {
+                    <div id="SearchOption_ByDepartment" class="hidden">
+                        <div class="input-group">
+                            @Html.LabelFor(model => model.DepartmentName, htmlAttributes: new { @class = "input-group-addon" })
+                            @Html.DropDownListFor(model => model.DepartmentId, Model.DepartmentList, htmlAttributes: new { @class = "form-control" })
+                            <div class="col-md-10">
+                                @Html.ValidationMessageFor(model => model.DepartmentId, "", htmlAttributes: new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="hidden">
+                @Html.HiddenFor(model => model.SearchOption)
+                @if (Model.SearchOption == SearchBy.Name)
+                {
+                    @Html.HiddenFor(model => model.DoctorName)
+                }
+                else if (Model.SearchOption == SearchBy.Department)
+                {
+                    @Html.HiddenFor(model => model.DepartmentId)
+                }
+                else if (Model.SearchOption == SearchBy.Dates)
+                {
+                    @Html.HiddenFor(model => model.Date)
+                }
+
+                else
+                {
+                    @Html.HiddenFor(model => model.DepartmentId)
+                    @Html.HiddenFor(model => model.Date)
+                    @Html.HiddenFor(model => model.DoctorName)
+                }
+            </div>
+
+            <div class="form-group pull-right">
+                <button type="submit" name="filterResults" class="btn btn-info">Filter</button>
+            </div>
+        }
+    </div>
+}
