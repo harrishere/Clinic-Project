@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "CancelIt";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+
+    bool Canceled = (bool)ViewBag.Canceled;
+    Appointment Appointment = ViewBag.Appointment as Appointment;
+    List<string> err = ViewBag.Errors as List<string>;
+}
+
+<div class="min-heigth-box">
+
+    <div class="container">
+        <div class="min-top-padding"></div>
+        <div class="table-details min-heigth-box">
+            <div class="row">
+                <div class="col-md-11 panel-danger text-danger" id="statusPanel">
+                    @foreach (var e in err)
+                    {
+                        <p class="text-danger">@e</p>
+                    }
+                </div>
+                <div class="col-md-11 panel-danger text-info" id="statusPanel">
+                    @if (Appointment != null)
+                    {
+                        <p class="text-info">
+                            Your Appointment is cancelled successfully...!!! Here Are the Details of the Cancelled Appointment Is:
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
