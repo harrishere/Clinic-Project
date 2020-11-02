@@ -1,0 +1,88 @@
+﻿@model DoctorScheduleViewModel
+
+<table class="table table-striped table-bordered table-list" id="tableDoctorSchedule" data-ppims-get-appointment-url="@Url.Action("BookAppointment", "GetAppointment")">
+
+    <thead>
+        <tr class="table-header">
+            <th>
+                <p class="info text-info text-center">Day</p>
+            </th>
+            <th>
+                <p class="info text-info text-center">Date</p>
+            </th>
+            <th>
+                <p class="info text-info text-center">Available Time Slots</p>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr id="doctorDetails" class="hidden">
+            @Html.HiddenFor(modelItem => Model.GetScheduleModel.DoctorId)
+            @Html.HiddenFor(modelItem => Model.DoctorName)
+        </tr>
+
+        @foreach (var item in Model.Appointments)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Day)
+                    @Html.HiddenFor(modelItem => item.Day)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                    @Html.HiddenFor(modelItem => item.Date)
+                </td>
+                <td colspan="4" class="time-slot">
+                    @foreach (var Slot in item.AppointmentSlots)
+                    {
+                        <div class="slot">
+                            @Html.HiddenFor(modelItem => Slot.Time)
+                            @Html.HiddenFor(modelItem => Slot.SlotNo)
+                            @if (Slot.IsBooked)
+                            {
+                                <button class="btn btn-danger disabled hvr-sweep-to-bottom" data-toggle="tooltip" title="this slot is already booked!" data-palcement="auto" disabled="disabled">@Slot.Time.ToShortTimeString()</button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-info hvr-sweep-to-right" name="btnSelectSlot" data-toggle="tooltip" title="click here to get an appointment!" data-palcement="auto">@Slot.Time.ToShortTimeString()</button>
+                            }
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*<div class="panel-body">
+        <div class="clearfix"></div>
+
+    </div>
+
+    <div class="panel-footer">
+        <div class="row">
+            <div class="col col-xs-4">
+                Page 1 of 5
+            </div>
+            <div class="col col-xs-8">
+                <ul class="pagination hidden-xs pull-right">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                    <li>
+                        <a href="#">@i</a>
+                    </li>
+                    }
+                </ul>
+                <ul class="pagination visible-xs pull-right">
+                    <li>
+                        <a href="#">«</a>
+                    </li>
+                    <li>
+                        <a href="#">»</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>*@
+
