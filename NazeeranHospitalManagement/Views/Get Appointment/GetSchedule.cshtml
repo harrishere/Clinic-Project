@@ -1,0 +1,86 @@
+﻿@model SearchScheduleViewModel
+
+@{
+    ViewBag.Title = "GetSchedule";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.DefaultLayout;
+}
+<div class="min-heigth-box">
+    @if (Model == null || Model.DoctorSchedule.Count() == 0)
+    {
+        <div class="alert alert-danger">
+            <div class="text-danger">
+                <p>Sorry, No Doctor Has Been Found Under Your Selected Criteria...!!!</p>
+                @Html.ActionLink("Click Here to Search Again", "SearchSchedule", null, htmlAttributes: new { @class = "" })
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <div class="min-top-padding"></div>
+            @if (Model.WantCancelling)
+            {
+                <div class="min-padding-all">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well">
+                                <p class="text-center">Your Old Appointment Details:</p>
+                                <p class="text-center"><strong>Patient Name:</strong> @Model.OldAppointment.PatientName</p>
+                                <p class="text-center"><strong>Appointment Id:</strong> @Model.OldAppointment.AppointmentId</p>
+                                <br />
+                                <p class="text-center">
+                                    <strong>Date: </strong> @Model.OldAppointment.AppointmentTime.Date.ToShortDateString()        <strong>Time: </strong> @Model.OldAppointment.AppointmentTime.TimeOfDay.ToString()        <strong>Day: </strong> @Model.OldAppointment.Day
+                                </p>
+                                <br />
+                                <p class="text-center"><strong>Doctor Name:</strong> @Model.OldAppointment.DoctorName        <strong>Department Name:</strong> @Model.OldAppointment.DepartmentName</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="table-details min-heigth-box">
+                <div class="row">
+                    <div class="col-md-11 middle-align">
+                        <div class="panel panel-default panel-table">
+                            <div class="panel-heading" id="schedule_header_color">
+                                <div class="row">
+                                    <div class="">
+                                        <h4 class="text-center">View Doctor Schedules!</h4>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        @Html.Partial("_SearchOptions", Model)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="clearfix"></div>
+                                <table class="table table-striped table-bordered table-list" id="tableDoctorSchedule">
+                                    @Html.Partial("_SearchResultTable", Model.DoctorSchedule)
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @if (Model.WantCancelling)
+    {
+        <script>
+            $(function () {
+                $("#tableDoctorSchedule tr a").each(function (index, elem) {
+                    var href = $(elem).attr('href');
+                    href += "&WantCancelling=true&OldAppointmentId=@Model.OldAppointmentId";
+                    $(elem).attr('href', href);
+                });
+            });
+        </script>
+    }
+}
+
+
