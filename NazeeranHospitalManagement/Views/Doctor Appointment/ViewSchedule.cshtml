@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DoctorSchedule>
+
+@{
+    ViewBag.Title = "ViewSchedule";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ViewSchedule</h2>
+
+<div class="container" style="padding-top: 10px; padding-bottom: 10px; min-height: 500px;">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ArrivalTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LeaveTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Day)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ArrivalTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Day)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
