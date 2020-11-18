@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ViewScheduleViewModel>
+
+@{
+    ViewBag.Title = "List Of Doctors";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardDoctorPartial;
+    Page.Title = "My Schedule";
+}
+
+<div class="container">
+    <div class="min-heigth-box">
+        <div class="well">
+            <table class="table table-responsive table-hover table-striped">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ArrivalTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LeaveTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Day)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArrivalTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LeaveTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Day)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Edit", "DoctorSchedule", new { id = item.ScheduleId })">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <a href="@Url.Action("Delete", "DoctorSchedule", new { id = item.ScheduleId })">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+
+                            @Html.ActionLink("Edit", "DoctorSchedule", new { id = item.ScheduleId }) |
+                            @Html.ActionLink("Delete", "DoctorSchedule", new { id = item.ScheduleId })
+                        </td>
+                    </tr>
+                }
+            </table>
+    </div>
+    </div>
+</div>
+
