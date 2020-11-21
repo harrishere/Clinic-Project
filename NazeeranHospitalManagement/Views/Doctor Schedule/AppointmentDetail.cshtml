@@ -1,0 +1,50 @@
+﻿@model AppointmentDetailViewModel
+
+@{
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardDoctorPartial;
+    ViewBag.Title = "Appointment Details";
+    Page.Title = "Patient Detail";
+}
+
+<div class="col-md-12">
+    <div class="shadow-box">
+        <div class="well">
+            @if (Model.Errors.Count > 0)
+            {
+                foreach (var err in Model.Errors)
+                {
+                    <p class="text-danger text-center" style="font-size: large;">@err</p>
+                }
+            }
+            else
+            {
+                <div class="col-md-6 middle-align">
+                    <strong>Patient Id:</strong> @Model.Appointment.PatientId
+                    <br />
+                    <strong>Patient Name:</strong> @Model.Appointment.Patient.User.Name
+                    <br />
+                    <strong>Patient Gender:</strong> @Model.Appointment.Patient.User.Gender
+                    <br />
+                    <strong>Patient Contact No:</strong> @Model.Appointment.Patient.User.PhoneNumber
+                    <br />
+                    <br />
+                    <strong>Appointment No:</strong> @Model.Appointment.AppointmentNo
+                    <br />
+                    <strong>Appointment Date:</strong> @Model.Appointment.Date.Date.ToLongDateString()
+                    <br />
+                    <strong>Appointment Time:</strong> @DateTime.Today.Add(Model.Appointment.Time).ToString("hh:mm tt")
+                    <br />
+                    <strong>Appointment Status:</strong> @Model.Appointment.Status
+                    <br />
+                </div>
+            }
+
+            <div class="min-top-padding">
+                <a href="@Url.Action("ViewAllAppointments", "DoctorSchedule")" class="btn btn-primary">
+                    <i class="fa fa-backward"></i>
+                    Back
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
