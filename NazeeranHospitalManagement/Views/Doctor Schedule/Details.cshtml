@@ -1,0 +1,51 @@
+﻿@model DoctorSchedule
+
+@{
+    ViewBag.Title = "Details";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardDoctorPartial;
+    Page.Title = "Doctor Schedules Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArrivalTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArrivalTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LeaveTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LeaveTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Day)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Day)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Doctor.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Doctor.UserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
