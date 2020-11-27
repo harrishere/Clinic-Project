@@ -1,0 +1,25 @@
+﻿@*@model IEnumerable<ViewDoctorViewModel>*@
+
+@{
+    ViewBag.Title = "View Doctors";
+    Layout = NazeeranHospitalManagementConstants.LayoutNameConst.LayoutDashboardDoctorPartial;
+    Page.Title = "View Doctors";
+}
+
+<div class="min-heigth-box">
+    <div class="">
+        <h1 class="">
+            <span class="pull-right col-md-3 col-xs-pull-0">
+                @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-success pull-right" })
+            </span>
+        </h1>
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="min-padding-all">
+        <div class="well col-md-12">
+            <table class="table table-hover table-striped">
+            </table>
+        </div>
+    </div>
+</div>
